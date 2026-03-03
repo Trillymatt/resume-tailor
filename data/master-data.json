@@ -1,0 +1,289 @@
+{
+  "technicalSkills": {
+    "programmingLanguages": [
+      "JavaScript",
+      "TypeScript",
+      "Python",
+      "Java",
+      "C++",
+      "C",
+      "Swift",
+      "SwiftUI",
+      "SQL",
+      "HTML",
+      "CSS",
+      "R",
+      "Go",
+      "Kotlin",
+      "XML",
+      "Objective-C"
+    ],
+    "frameworks": [
+      "React",
+      "React.js",
+      "Next.js",
+      "Node.js",
+      "Express",
+      "Django",
+      "Flask",
+      "Spring Boot",
+      "SwiftData",
+      "iOS Development"
+    ],
+    "developerTools": [
+      "Git",
+      "GitHub",
+      "Docker",
+      "AWS",
+      "GCP",
+      "Jenkins",
+      "Jira",
+      "Figma",
+      "Xcode",
+      "VS Code",
+      "Postman",
+      "CI/CD",
+      "RESTful API",
+      "Supabase",
+      "Azure",
+      "TestFlight",
+      "App Store Connect",
+      "GitHub Actions",
+      "MongoDB",
+      "Tableau"
+    ],
+    "libraries": [
+      "pandas",
+      "NumPy",
+      "TensorFlow",
+      "scikit-learn",
+      "Mongoose",
+      "Prisma",
+      "Jest",
+      "Cypress",
+      "XCTest",
+      "Espresso"
+    ]
+  },
+  "workExperience": [
+    {
+      "id": "apple-watch-swe-intern-2025",
+      "company": "Apple, Inc.",
+      "location": "Cupertino, CA",
+      "title": "Watch Software Engineer Intern",
+      "dates": "May 2025 – Aug 2025",
+      "bullets": [
+        "Developed a script to integrate GitHub with Apple's internal bug reporting tool.",
+        "Built a script connecting GitHub to Apple's internal bug tracking system, automating PR comment generation for matched bugs.",
+        "Automated PR comment generation by matching bugs to new changes streamlining developer workflows.",
+        "Created an AI-powered code analysis system that flagged potential issues during reviews, increasing the bug detection rate by 35%.",
+        "Created an AI code analysis tool that flagged issues during reviews, catching 35% more bugs before merge.",
+        "Integrated automation into existing developer workflows, reducing manual triage time for bug-to-code matching.",
+        "Built internal tooling that connected version control with bug tracking, improving team response time to reported issues.",
+        "Wrote Python scripts to parse PR diffs and match them against open bug reports, surfacing relevant context for reviewers.",
+        "Built and maintained CI/CD pipelines to automate testing and deployment of internal developer tools.",
+        "Set up GitHub Actions workflows to run automated checks on PRs, reducing manual review overhead.",
+        "Followed the full software development lifecycle from requirements gathering through deployment and iteration.",
+        "Applied analytical thinking to break down complex bug-to-code matching problems into automatable pipeline steps."
+      ]
+    },
+    {
+      "id": "apple-swiftdata-2024",
+      "company": "Apple, Inc.",
+      "location": "Cupertino, CA",
+      "title": "SwiftData Engineer Career Experience",
+      "dates": "Jun 2024 – Nov 2024",
+      "bullets": [
+        "Conducted comprehensive performance testing on the SwiftData framework, resolving and debugging 6 bugs.",
+        "Ran performance tests on SwiftData framework, identifying and fixing 6 bugs that improved framework stability.",
+        "Proactively aligned project goals with team needs through regular collaboration with managers, delivering projects ahead of schedule.",
+        "Worked with managers to align testing priorities with team goals, delivering projects ahead of deadline within the Cocoa org.",
+        "Wrote 6 unit tests for SampleTrips app, validating data persistence and framework behavior under edge cases.",
+        "Optimized front-end performance by writing comprehensive unit tests for the SampleTrips application, improving SwiftData adoption.",
+        "Created unit tests for SampleTrips application used to help other developers understand how to use SwiftData.",
+        "Developed and debugged software using Java, Swift, Objective-C, Python, and HTML across multiple Apple frameworks.",
+        "Performed end-to-end performance testing across the SwiftData framework, documenting results and regression patterns.",
+        "Used XML-based test configurations to define and execute automated test suites across the SwiftData framework.",
+        "Wrote XCTest cases to validate data persistence, framework behavior, and performance under edge conditions.",
+        "Contributed to design reviews, providing feedback on API surface and testing strategies within the Cocoa org.",
+        "Tested distributed system behaviors within the framework, ensuring scalability and throughput under increasing data volumes.",
+        "Participated in the full SDLC from test planning and design review through execution, bug filing, and verification."
+      ]
+    },
+    {
+      "id": "apple-technical-specialist",
+      "company": "Apple, Inc.",
+      "location": "Cupertino, CA",
+      "title": "Technical Specialist",
+      "dates": "Feb 2023 – Jun 2024",
+      "bullets": [
+        "Troubleshot and resolved hardware and software issues across Apple's product line at the Genius Bar.",
+        "Led the Genius Bar team in session duration, averaging 15 minutes per appointment.",
+        "Collaborated with team members to diagnose and resolve complex technical problems for customers.",
+        "Mentored peers on session duration best practices, helping the team lead Q4 in session efficiency.",
+        "Diagnosed and fixed software and hardware issues across iPhones, Macs, and iPads for 20+ customers daily.",
+        "Repaired iPhones and other devices, running diagnostics and performing component-level fixes at the Genius Bar.",
+        "Walked customers through device troubleshooting steps, resolving most issues same-day without escalation.",
+        "Mentored new team members on repair workflows, diagnostic tools, and customer communication techniques.",
+        "Used systematic problem-solving to isolate root causes across hardware and software failures under time pressure.",
+        "Communicated complex technical diagnoses to non-technical customers in clear, approachable language."
+      ]
+    },
+    {
+      "id": "apple-product-zone",
+      "company": "Apple, Inc.",
+      "location": "Cupertino, CA",
+      "title": "Product Zone Specialist",
+      "dates": "Aug 2021 – Feb 2023",
+      "bullets": [
+        "Developed new strategies to improve AppleCare attachment rates for the sales team.",
+        "Consistently maintained AppleCare numbers above 60%, exceeding role expectations.",
+        "Created peer-led training sessions on AppleCare value propositions and device setup best practices.",
+        "Trained new hires on product demos, device setup, and customer engagement techniques.",
+        "Applied analytical thinking to identify patterns in customer needs and tailor product recommendations accordingly."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "home-security-alarm",
+      "name": "Home Security Alarm System",
+      "bullets": [
+        "Engineered a C-based Home Security Alarm System integrating door sensors and an arming mechanism, achieving 99% accuracy in intrusion detection.",
+        "Built a C-based home security system with door sensors and arming logic, achieving 99% intrusion detection accuracy.",
+        "Reduced false alarms by 42% using debouncing techniques and sensor integration for reliable real-time monitoring.",
+        "Integrated a door sensor to detect and log door opening and closing events in real time.",
+        "Designed and implemented interrupt-driven sensor handling for low-latency alarm response.",
+        "Used button-optimized door sensor integration with advanced debouncing techniques to minimize false positives.",
+        "Planned development sprints and documented design decisions to keep the project on track through completion."
+      ]
+    },
+    {
+      "id": "elevatr-ai",
+      "name": "ELEVATR AI",
+      "bullets": [
+        "Developed a tool to help content creators with content ideas using a Large Language Model.",
+        "Created a content idea generator using a Large Language Model, helping creators brainstorm and plan posts.",
+        "Engineered an interactive website using React.js and Typescript, using AWS to host the website and Supabase for data storage and seamless integration.",
+        "Built an interactive React/TypeScript frontend hosted on AWS, with Supabase handling data storage and user sessions.",
+        "Designed the full-stack architecture including API routes, database schema, and LLM prompt engineering.",
+        "Created project documentation and ran sprint cycles to plan features, track progress, and ship on schedule."
+      ]
+    },
+    {
+      "id": "personal-website",
+      "name": "Personal Portfolio Website",
+      "bullets": [
+        "Designed and built a personal portfolio website using HTML, CSS, and React to showcase projects.",
+        "Used agile methodology to plan, design, and iterate on a user-friendly portfolio site.",
+        "Implemented responsive design and deployed the site for public access.",
+        "Wrote design docs and organized sprint-based development cycles to scope features and track progress."
+      ]
+    },
+    {
+      "id": "clarity-ios",
+      "name": "Clarity — iOS Productivity App",
+      "bullets": [
+        "Built an iOS app in SwiftUI with journaling, task tracking, habit building, and personal finance features.",
+        "Designed persistent data models with SwiftData for journals, habits, tasks, and financial entries.",
+        "Shipped the app to TestFlight via App Store Connect, managing the full build-to-distribution pipeline.",
+        "Created a unified daily dashboard surfacing habits, tasks, journal entries, and spending in one view.",
+        "Implemented local data persistence with SwiftData, keeping all user data across sessions without a backend.",
+        "Designed a clean, intuitive UI in SwiftUI with tab-based navigation across four core productivity features.",
+        "Planned feature rollouts in sprint cycles with written design docs, keeping development organized as a solo project."
+      ]
+    },
+    {
+      "id": "polish-doc-editor",
+      "name": "Polish — AI Document Editor",
+      "bullets": [
+        "Led a team of 4 to build a document editor with inline AI-powered edits using Claude, OpenAI, and Gemini APIs.",
+        "Integrated multiple LLM providers (Claude, OpenAI, Gemini) to generate inline text suggestions and rewrites.",
+        "Architected the backend on Azure to handle API routing, user sessions, and LLM request orchestration.",
+        "Built an inline editing UX that lets users highlight text and receive AI-suggested rewrites in-place.",
+        "Managed sprint planning, code reviews, and task delegation as the project lead for a 4-person senior capstone team.",
+        "Designed a modular LLM integration layer allowing seamless switching between Claude, OpenAI, and Gemini models.",
+        "Created technical design documents and architecture diagrams to align the team before each development sprint.",
+        "Ran weekly standups and retrospectives, keeping a 4-person team shipping features on a consistent cadence."
+      ]
+    },
+    {
+      "id": "tictactoe-ai",
+      "name": "Tic-Tac-Toe AI",
+      "bullets": [
+        "Built a Tic-Tac-Toe game in Python with an AI opponent using minimax and alpha-beta pruning search algorithms.",
+        "Implemented game search algorithms to create an unbeatable AI opponent trained in an Intro to AI course.",
+        "Designed the game loop, board state representation, and move evaluation logic from scratch in Python.",
+        "Applied adversarial search techniques to evaluate all possible game states and select optimal moves.",
+        "Scoped the project in planning docs and broke development into sprints covering game logic, AI, and UI."
+      ]
+    },
+    {
+      "id": "simcity-simulation",
+      "name": "SimCity Population Simulator",
+      "bullets": [
+        "Simulated a city of Sims in C/C++ using pointers and memory addressing to model population, pollution, and zoning.",
+        "Modeled population growth and decline based on surrounding pollution levels and proximity to industrial, retail, and government zones.",
+        "Used pointer-based grid structures to track pollution spread and its impact on neighboring residential areas.",
+        "Implemented zoning logic for industrial, retail, and government establishments influencing Sim employment and migration.",
+        "Built a simulation engine that dynamically adjusted population based on environmental and economic factors across the grid.",
+        "Coordinated work across a team using sprint planning and shared documentation to divide features and track progress.",
+        "Authored design docs outlining data structures, simulation logic, and team responsibilities before each sprint."
+      ]
+    }
+  ],
+  "leadership": [
+    {
+      "id": "mlt",
+      "organization": "Management Leadership for Tomorrow",
+      "location": "Washington, DC",
+      "role": "Career Preparation Fellow,",
+      "dates": "Jan 2024 – Present",
+      "bullets": [
+        "Accepted into a selective 18-month professional development program for high-achieving diverse talent.",
+        "Completed an 18-month professional development program focused on leadership and career growth for diverse talent.",
+        "Leveraged networking opportunities at conferences hosted by Deloitte, LinkedIn, and Target, securing 12 informational interviews and expanding professional network by 54%.",
+        "Attended conferences at Deloitte, LinkedIn, and Target, conducting 12 informational interviews and growing network by 54%.",
+        "Completed business case studies and assignments to build leadership and technical skills."
+      ]
+    },
+    {
+      "id": "colorstack",
+      "organization": "ColorStack UNT",
+      "location": "Denton, TX",
+      "role": "Sponsorship Chair/Co-founder",
+      "dates": "Jul 2024 – Present",
+      "bullets": [
+        "Spearheaded 4 professional development events, leading to a 92% satisfaction rating from students.",
+        "Organized 4 professional development events with a 92% satisfaction rating, connecting students with industry mentors.",
+        "Grew ColorStack UNT to 43 members and mentored 5 students transitioning into tech roles at the university.",
+        "Effectively collaborated with E-board members on events on how to bring value to our new org, which led to an overall growth in organization of 43 members. Mentored 5 Students new to UNT.",
+        "Secured sponsorships from tech companies to fund events and provide resources for members."
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "id": "ibm-fullstack",
+      "name": "IBM Full Stack Software Developer Professional Certificate",
+      "date": "Jan. 2026",
+      "skills": [
+        "Cloud Computing",
+        "Front-End Development",
+        "Unit testing",
+        "CI/CD",
+        "AWS"
+      ]
+    },
+    {
+      "id": "psm1",
+      "name": "Professional Scrum Master (PSM I)",
+      "date": "Expected Mar. 2026",
+      "skills": [
+        "Agile",
+        "Scrum",
+        "Project Management"
+      ]
+    }
+  ]
+}
