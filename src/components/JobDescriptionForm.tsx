@@ -34,7 +34,10 @@ export default function JobDescriptionForm() {
 
       if (!response.ok) {
         const err = await response.json();
-        throw new Error(err.error || "Failed to generate resume");
+        const msg = err.detail
+          ? `${err.error}: ${err.detail}`
+          : err.error || "Failed to generate resume";
+        throw new Error(msg);
       }
 
       const data: TailorResult = await response.json();

@@ -1,7 +1,16 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { MasterData, TailoredResume } from "./types";
 
-const client = new Anthropic();
+function getClient() {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error(
+      "ANTHROPIC_API_KEY environment variable is not set. " +
+        "Set it in your hosting provider's environment variables."
+    );
+  }
+  return new Anthropic({ apiKey });
+}
 
 export async function tailorWithClaude(
   jobDescription: string,
@@ -106,7 +115,7 @@ ${JSON.stringify(masterData, null, 2)}
 
 Please tailor my resume for this job. Return only the JSON.`;
 
-  const response = await client.messages.create({
+  const response = await getClient().messages.create({
     model: "claude-sonnet-4-5-20250929",
     max_tokens: 4096,
     system: systemPrompt,
@@ -162,7 +171,7 @@ ${JSON.stringify(masterData, null, 2)}
 
 Write a tailored cover letter for this role.`;
 
-  const response = await client.messages.create({
+  const response = await getClient().messages.create({
     model: "claude-sonnet-4-5-20250929",
     max_tokens: 2048,
     system: systemPrompt,
