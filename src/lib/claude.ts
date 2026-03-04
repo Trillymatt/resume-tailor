@@ -140,26 +140,30 @@ export async function generateCoverLetter(
   jobDescription: string,
   masterData: MasterData
 ): Promise<string> {
-  const systemPrompt = `Write a cover letter for a real person applying to a job. You're given their actual experience and the job description.
+  const systemPrompt = `Write a cover letter for Matthew Norman applying to a job. You're given his actual experience and the job description.
 
 WRITING STYLE — THIS IS CRITICAL:
-- Sound like a real human being wrote this, not an AI. This is the most important rule.
-- Write conversationally but professionally. Think "thoughtful email to someone you respect," not "corporate press release."
-- NEVER use these AI-giveaway phrases: "I am excited to," "I am thrilled," "I believe I would be a great fit," "I am confident that," "leveraging my experience," "passionate about," "drive innovation," "proven track record," "hit the ground running."
-- Instead, be specific and direct. Say what you did, why it matters for this role, and why you're interested. Show, don't tell.
-- Vary your sentence length. Mix short punchy sentences with longer ones. Don't start every sentence with "I."
-- Use natural transitions, not formal ones like "Furthermore" or "Additionally." Just flow from one thought to the next.
-- One or two specific details/metrics are more convincing than listing every accomplishment. Pick the most relevant ones.
-- End with something genuine, not a generic "I look forward to hearing from you."
+- This must read like a real person sat down and wrote it. Not an AI. Not a template. A human being with a personality.
+- Write like you're drafting a thoughtful email to a hiring manager you respect — direct, warm, and confident without being stiff.
+- BANNED phrases (instant AI red flags): "I am excited to," "I am thrilled," "I believe I would be a great fit," "I am confident that," "leveraging my experience," "passionate about," "drive innovation," "proven track record," "hit the ground running," "unique opportunity," "align with my skills," "make a meaningful impact," "diverse team," "fast-paced environment," "eager to contribute."
+- Don't hedge or over-qualify. Instead of "I believe my experience could potentially be relevant," just say what you did and why it matters.
+- Vary sentence length deliberately. Follow a long, detailed sentence with a short punchy one. This creates rhythm.
+- Don't start more than two sentences with "I" in a row. Restructure to lead with the work, the team, or the outcome.
+- Use contractions naturally (I'm, I've, didn't, wasn't). Nobody writes "I have been" in a real email.
+- Let personality show through — a brief aside, a specific detail about why the company or role is interesting, something that shows you actually read the JD rather than just pattern-matching keywords.
+- Pick 2-3 of the strongest, most relevant experiences and go deeper on those rather than surface-skimming everything.
+- Specific numbers and outcomes are good, but weave them in naturally. Don't list them like bullet points in paragraph form.
+
+STRUCTURE:
+1. Opening: Start with something specific about this role or company that caught Matthew's eye. Tie it immediately to a relevant piece of his background. No generic "I'm writing to apply for..." openers.
+2. Body (1-2 paragraphs): Connect his most relevant experience to what the role needs. Be concrete — name the tools, describe the work, mention the outcome. Bridge between his background and what the team is looking for.
+3. Closing: End genuinely. Something that signals real interest without being sycophantic. Include his name naturally in the sign-off.
 
 Rules:
-1. Use ONLY the candidate's actual experience from the provided data. Do NOT fabricate anything.
-2. Structure: Opening (why this role caught your eye + quick relevant hook), 1-2 body paragraphs (specific relevant experience with details), closing (genuine interest + next step).
-3. Keep it to 250-350 words. Recruiters skim — make every sentence earn its spot.
-4. Do NOT include headers, addresses, dates, or salutations — just the body paragraphs.
-5. Write in first person as the candidate.
-
-The candidate's name is Matthew Norman.
+1. Use ONLY Matthew's actual experience from the provided data. Do NOT fabricate anything.
+2. Keep it to 250-350 words. Every sentence must earn its spot.
+3. Include a proper salutation (Dear Hiring Manager, or Dear [Team] Team,) and sign off with Matthew's name.
+4. Write in first person as Matthew Norman.
 
 Return ONLY the cover letter text, no markdown formatting, no extra commentary.`;
 
