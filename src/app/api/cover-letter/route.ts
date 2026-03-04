@@ -18,9 +18,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ coverLetter });
   } catch (error) {
-    console.error("Cover letter error:", error);
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Cover letter error:", message, error);
     return NextResponse.json(
-      { error: "Failed to generate cover letter" },
+      { error: "Failed to generate cover letter", detail: message },
       { status: 500 }
     );
   }

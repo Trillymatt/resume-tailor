@@ -18,9 +18,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ original: masterData, tailored });
   } catch (error) {
-    console.error("Tailor error:", error);
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Tailor error:", message, error);
     return NextResponse.json(
-      { error: "Failed to generate tailored resume" },
+      { error: "Failed to generate tailored resume", detail: message },
       { status: 500 }
     );
   }

@@ -6,9 +6,11 @@ export async function GET() {
     const data = await readMasterData();
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Read master data error:", error);
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Read master data error:", message, error);
     return NextResponse.json(
-      { error: "Failed to read master data" },
+      { error: "Failed to read master data", detail: message },
       { status: 500 }
     );
   }
@@ -20,9 +22,11 @@ export async function PUT(req: NextRequest) {
     await writeMasterData(data);
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Write master data error:", error);
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Write master data error:", message, error);
     return NextResponse.json(
-      { error: "Failed to save master data" },
+      { error: "Failed to save master data", detail: message },
       { status: 500 }
     );
   }

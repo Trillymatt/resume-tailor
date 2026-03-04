@@ -16,9 +16,11 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Download error:", error);
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Download error:", message, error);
     return NextResponse.json(
-      { error: "Failed to generate resume document" },
+      { error: "Failed to generate resume document", detail: message },
       { status: 500 }
     );
   }
