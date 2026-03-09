@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { MasterData, TailoredResume } from "@/lib/types";
+import { MasterData, TailoredResume, KeywordAnalysis } from "@/lib/types";
 
 interface DiffReviewProps {
   original: MasterData;
   tailored: TailoredResume;
-  onDownload: (finalResume: TailoredResume) => void;
+  onDownload: (finalResume: TailoredResume, format: "docx" | "pdf") => void;
   downloading: boolean;
+  keywordAnalysis: KeywordAnalysis | null;
+  onSaveApplication?: (keywordAnalysis: KeywordAnalysis) => void;
 }
 
 export default function DiffReview({
@@ -15,7 +17,10 @@ export default function DiffReview({
   tailored,
   onDownload,
   downloading,
+  keywordAnalysis,
+  onSaveApplication,
 }: DiffReviewProps) {
+  const [showMissed, setShowMissed] = useState(false);
   // Track which proposed skills are accepted (by skill name)
   const proposedSkills = tailored.technicalSkills.programmingLanguages
     .split(",")
@@ -236,14 +241,104 @@ export default function DiffReview({
         <h2 className="text-lg font-semibold text-gray-900">
           Review Changes
         </h2>
-        <button
-          onClick={() => onDownload(buildFinalResume())}
-          disabled={downloading}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
-        >
-          {downloading ? "Downloading..." : "Download Resume"}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => onDownload(buildFinalResume(), "docx")}
+            disabled={downloading}
+            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+          >
+            {downloading ? "Downloading..." : "Download DOCX"}
+          </button>
+          <button
+            onClick={() => onDownload(buildFinalResume(), "pdf")}
+            disabled={downloading}
+            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 disabled:bg-gray-400 transition-colors"
+          >
+            {downloading ? "Downloading..." : "Download PDF"}
+          </button>
+        </div>
       </div>
+
+      {/* Keyword Match Score */}
+      {keywordAnalysis && (
+        <div className={`border rounded-lg p-4 ${
+          keywordAnalysis.score >= 70
+            ? "border-green-200 bg-green-50"
+            : keywordAnalysis.score >= 50
+            ? "border-yellow-200 bg-yellow-50"
+            : "border-red-200 bg-red-50"
+        }`}>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-semibold text-gray-700">
+              ATS Keyword Match Score
+            </h3>
+            <span className={`text-2xl font-bold ${
+              keywordAnalysis.score >= 70
+                ? "text-green-700"
+                : keywordAnalysis.score >= 50
+                ? "text-yellow-700"
+                : "text-red-700"
+            }`}>
+              {keywordAnalysis.score}%
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+            <div
+              className={`h-2 rounded-full transition-all ${
+                keywordAnalysis.score >= 70
+                  ? "bg-green-500"
+                  : keywordAnalysis.score >= 50
+                  ? "bg-yellow-500"
+                  : "bg-red-500"
+              }`}
+              style={{ width: `${keywordAnalysis.score}%` }}
+            />
+          </div>
+          <p className="text-xs text-gray-600 mb-2">
+            {keywordAnalysis.matched.length} of {keywordAnalysis.total} keywords matched.
+            {keywordAnalysis.score < 70 && (
+              <span className="text-red-600 font-medium">
+                {" "}Below 70% threshold — ATS may filter this resume out.
+              </span>
+            )}
+            {keywordAnalysis.score >= 70 && (
+              <span className="text-green-600 font-medium">
+                {" "}Good match — likely to pass ATS screening.
+              </span>
+            )}
+          </p>
+          {keywordAnalysis.missed.length > 0 && (
+            <div>
+              <button
+                onClick={() => setShowMissed(!showMissed)}
+                className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+              >
+                {showMissed ? "Hide" : "Show"} {keywordAnalysis.missed.length} missing keywords
+              </button>
+              {showMissed && (
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {keywordAnalysis.missed.map((kw) => (
+                    <span
+                      key={kw}
+                      className="px-2 py-0.5 text-xs bg-red-100 text-red-700 rounded-full"
+                    >
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          {onSaveApplication && keywordAnalysis && (
+            <button
+              onClick={() => onSaveApplication(keywordAnalysis)}
+              className="mt-3 text-xs bg-blue-100 text-blue-700 px-3 py-1.5 rounded hover:bg-blue-200 font-medium transition-colors"
+            >
+              Save to Application Tracker
+            </button>
+          )}
+        </div>
+      )}
 
       <p className="text-xs text-gray-500">
         Green = AI&apos;s proposed change. Red = removed by AI. Toggle
@@ -563,14 +658,21 @@ export default function DiffReview({
         </div>
       </section>
 
-      {/* Bottom download button */}
-      <div className="flex justify-end">
+      {/* Bottom download buttons */}
+      <div className="flex justify-end gap-2">
         <button
-          onClick={() => onDownload(buildFinalResume())}
+          onClick={() => onDownload(buildFinalResume(), "docx")}
           disabled={downloading}
           className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
         >
-          {downloading ? "Downloading..." : "Download Resume"}
+          {downloading ? "Downloading..." : "Download DOCX"}
+        </button>
+        <button
+          onClick={() => onDownload(buildFinalResume(), "pdf")}
+          disabled={downloading}
+          className="rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 disabled:bg-gray-400 transition-colors"
+        >
+          {downloading ? "Downloading..." : "Download PDF"}
         </button>
       </div>
     </div>

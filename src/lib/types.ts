@@ -71,3 +71,33 @@ export interface TailoredResume {
     skills: string;
   }[];
 }
+
+// Application tracking
+export type ApplicationStatus =
+  | "applied"
+  | "screening"
+  | "interview"
+  | "rejected"
+  | "offer"
+  | "withdrawn";
+
+export interface TrackedApplication {
+  id: string;
+  jobTitle: string;
+  company: string;
+  dateApplied: string;
+  status: ApplicationStatus;
+  jobDescription: string;
+  keywordScore: number;
+  matchedKeywords: string[];
+  missedKeywords: string[];
+  notes: string;
+}
+
+// Keyword analysis
+export interface KeywordAnalysis {
+  score: number;
+  matched: string[];
+  missed: string[];
+  total: number;
+}
