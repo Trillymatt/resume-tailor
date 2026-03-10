@@ -1,30 +1,6 @@
 import { TailoredResume, KeywordAnalysis } from "./types";
 
-// Common filler words to ignore when extracting keywords
-const STOP_WORDS = new Set([
-  "a", "an", "the", "and", "or", "but", "in", "on", "at", "to", "for",
-  "of", "with", "by", "from", "is", "are", "was", "were", "be", "been",
-  "being", "have", "has", "had", "do", "does", "did", "will", "would",
-  "could", "should", "may", "might", "shall", "can", "need", "must",
-  "about", "above", "after", "again", "all", "also", "am", "any", "as",
-  "both", "each", "few", "get", "got", "he", "her", "here", "him", "his",
-  "how", "i", "if", "into", "it", "its", "just", "let", "like", "make",
-  "me", "more", "most", "my", "no", "nor", "not", "now", "of", "off",
-  "old", "once", "only", "other", "our", "out", "over", "own", "per",
-  "put", "said", "same", "she", "so", "some", "such", "take", "than",
-  "that", "their", "them", "then", "there", "these", "they", "this",
-  "those", "through", "too", "under", "up", "us", "use", "very", "want",
-  "way", "we", "well", "what", "when", "where", "which", "while", "who",
-  "whom", "why", "work", "working", "you", "your", "etc", "including",
-  "ability", "strong", "experience", "team", "role", "position",
-  "required", "preferred", "requirements", "qualifications", "responsible",
-  "responsibilities", "years", "year", "job", "description", "company",
-  "based", "looking", "join", "opportunity", "candidate", "ideal",
-  "apply", "application", "equal", "employer", "benefits", "salary",
-  "new", "using", "across", "within", "between",
-]);
-
-// Technical terms / multi-word phrases to look for as a unit
+// Multi-word technical phrases to detect as a single unit
 const TECH_PHRASES = [
   "machine learning", "deep learning", "natural language processing",
   "computer vision", "data science", "data engineering", "data pipeline",
@@ -40,33 +16,136 @@ const TECH_PHRASES = [
   "test driven", "behavior driven",
   "project management", "product management",
   "supply chain", "customer facing",
+  "large language models", "large language model", "llm",
+  "retrieval augmented generation", "retrieval-augmented generation",
+  "convolutional neural network", "recurrent neural network",
+  "generative ai", "reinforcement learning",
+  "data structures", "algorithms",
+  "event driven", "message queue",
+  "serverless", "infrastructure as code",
+  "real time", "real-time",
 ];
 
+// Whitelist of known technical single-word keywords
+const TECH_KEYWORDS = new Set([
+  // Programming languages
+  "python", "javascript", "typescript", "java", "golang", "go", "rust",
+  "ruby", "php", "swift", "kotlin", "scala", "r", "matlab", "perl",
+  "bash", "shell", "powershell", "groovy", "elixir", "haskell", "lua",
+  "dart", "c", "c++", "c#", "f#", "cobol", "fortran", "zig", "nim",
+  "ocaml", "clojure", "erlang", "julia",
+
+  // Web frameworks & libraries
+  "react", "angular", "vue", "svelte", "nextjs", "next.js", "nuxt",
+  "gatsby", "remix", "astro", "solid", "qwik",
+  "django", "flask", "fastapi", "express", "nestjs", "koa", "hapi",
+  "rails", "sinatra", "laravel", "symfony", "codeigniter", "yii",
+  "spring", "hibernate", "struts", "quarkus", "micronaut",
+  "asp.net", "blazor", "xamarin", "maui",
+  "gin", "echo", "fiber", "chi",
+  "actix", "axum", "rocket", "warp",
+
+  // Frontend / UI
+  "html", "css", "sass", "scss", "less", "tailwind", "bootstrap",
+  "material-ui", "mui", "chakra", "shadcn", "antd", "styled-components",
+  "webpack", "vite", "rollup", "parcel", "esbuild", "babel",
+  "redux", "zustand", "jotai", "recoil", "mobx", "xstate", "pinia",
+  "graphql", "apollo", "relay", "urql", "trpc",
+  "websocket", "webrtc", "pwa", "wasm", "webassembly",
+
+  // Databases
+  "sql", "mysql", "postgresql", "postgres", "sqlite", "mariadb", "oracle",
+  "mongodb", "mongoose", "redis", "memcached", "elasticsearch", "opensearch",
+  "cassandra", "dynamodb", "firestore", "firebase", "supabase", "planetscale",
+  "neo4j", "arangodb", "couchdb", "rethinkdb", "cockroachdb", "tidb",
+  "snowflake", "bigquery", "redshift", "databricks", "clickhouse", "druid",
+
+  // Cloud & DevOps
+  "aws", "azure", "gcp", "cloudflare", "vercel", "netlify", "heroku",
+  "docker", "kubernetes", "k8s", "helm", "istio", "envoy", "consul",
+  "terraform", "pulumi", "ansible", "puppet", "chef", "vagrant",
+  "jenkins", "circleci", "travis", "github", "gitlab", "bitbucket",
+  "argocd", "flux", "spinnaker", "tekton",
+  "nginx", "apache", "caddy", "traefik",
+  "linux", "unix", "ubuntu", "debian", "centos", "rhel", "alpine",
+  "lambda", "ec2", "s3", "ecs", "eks", "rds", "sqs", "sns", "kinesis",
+  "cloudwatch", "datadog", "prometheus", "grafana", "sentry", "newrelic",
+  "splunk", "pagerduty", "opsgenie",
+
+  // ML / AI / Data
+  "tensorflow", "pytorch", "keras", "jax", "mxnet",
+  "scikit-learn", "sklearn", "xgboost", "lightgbm", "catboost",
+  "pandas", "numpy", "scipy", "matplotlib", "seaborn", "plotly",
+  "spark", "hadoop", "kafka", "flink", "airflow", "prefect", "dagster",
+  "mlflow", "kubeflow", "sagemaker", "vertex", "huggingface",
+  "langchain", "llamaindex", "openai", "anthropic", "llama",
+  "nltk", "spacy", "gensim", "transformers",
+  "opencv", "pillow", "albumentations",
+  "jupyter", "notebook", "colab",
+
+  // Mobile
+  "ios", "android", "react-native", "flutter", "ionic", "cordova",
+  "swiftui", "uikit", "jetpack", "compose",
+
+  // Testing
+  "jest", "mocha", "jasmine", "vitest", "cypress", "playwright",
+  "selenium", "puppeteer", "testing-library", "pytest", "unittest",
+  "rspec", "junit", "testng", "mockito", "cucumber", "storybook",
+
+  // APIs & Protocols
+  "rest", "api", "grpc", "soap", "http", "https", "tcp", "udp",
+  "oauth", "jwt", "saml", "openid", "ldap", "ssh", "tls", "ssl",
+  "json", "xml", "yaml", "toml", "protobuf", "avro", "parquet",
+
+  // Architecture & Patterns
+  "microservices", "monolith", "serverless", "event-driven",
+  "mvc", "mvvm", "mvp", "ddd", "tdd", "bdd", "solid", "dry",
+  "cqrs", "saga", "hexagonal", "clean",
+
+  // Tools & Collaboration
+  "git", "jira", "confluence", "figma", "postman", "insomnia",
+  "swagger", "openapi", "datadog", "kibana", "grafana",
+  "slack", "notion", "linear", "trello", "asana",
+
+  // Security
+  "oauth2", "sso", "rbac", "abac", "encryption", "hashing",
+  "penetration", "vulnerability", "soc2", "gdpr", "hipaa",
+  "firewall", "vpn", "zero-trust",
+
+  // Concepts (technical)
+  "algorithms", "concurrency", "parallelism", "multithreading",
+  "caching", "indexing", "sharding", "replication", "partitioning",
+  "orm", "sdk", "cli", "ide", "compiler", "interpreter",
+  "virtualization", "containerization", "orchestration",
+  "observability", "monitoring", "logging", "tracing",
+  "devops", "devsecops", "sre", "mlops", "dataops", "gitops",
+  "automation", "scripting",
+]);
+
 /**
- * Extract meaningful keywords and phrases from a job description.
- * Returns deduplicated, lowercased terms sorted by relevance.
+ * Extract meaningful technical keywords and phrases from a job description.
+ * Only returns recognized programming languages, frameworks, tools, and skills —
+ * not every word from the job description.
  */
 export function extractKeywords(jobDescription: string): string[] {
   const jdLower = jobDescription.toLowerCase();
   const found = new Set<string>();
 
-  // First pass: extract multi-word technical phrases
+  // First pass: detect multi-word technical phrases
   for (const phrase of TECH_PHRASES) {
     if (jdLower.includes(phrase)) {
       found.add(phrase);
     }
   }
 
-  // Second pass: extract individual technical/meaningful words
-  // Split on non-alphanumeric (keeping + and # for C++, C#, etc.)
-  const words = jdLower.match(/[a-z0-9#+.]+/g) || [];
+  // Second pass: match individual words against the technical keyword whitelist
+  // Split on whitespace and punctuation (keeping +, #, . for C++, C#, .NET etc.)
+  const words = jdLower.match(/[a-z0-9#.+/-]+/g) || [];
 
   for (const word of words) {
-    if (word.length < 2) continue;
-    if (STOP_WORDS.has(word)) continue;
-    // Skip pure numbers
-    if (/^\d+$/.test(word)) continue;
-    found.add(word);
+    if (TECH_KEYWORDS.has(word)) {
+      found.add(word);
+    }
   }
 
   return Array.from(found);
