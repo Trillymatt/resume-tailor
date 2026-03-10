@@ -34,6 +34,14 @@ STRATEGIC TAILORING — HOW TO MAXIMIZE INTERVIEW CHANCES:
 - When a bullet describes something generic (like "built a script"), add specificity that connects to the JD's domain — e.g., if the JD cares about deployment, describe the script's role in the deployment workflow.
 - Do NOT fabricate experience or add technologies/tools the candidate didn't use. But DO reframe truthful experience to highlight the aspects most relevant to this specific role.
 
+ATS KEYWORD OPTIMIZATION — THIS IS CRITICAL FOR GETTING PAST SCREENING:
+- Most companies use Applicant Tracking Systems (ATS) that scan resumes for keyword matches before a human ever sees them. If key terms from the JD are missing, the resume gets filtered out.
+- Extract EVERY specific technology, tool, methodology, and domain term from the JD. Then ensure as many as possible appear somewhere in the resume — in skills, bullets, or project descriptions.
+- Use the EXACT phrasing from the JD. If the JD says "RESTful APIs," write "RESTful APIs" — not just "APIs." If it says "Agile methodology," use that exact phrase somewhere.
+- For each required skill or technology in the JD, ensure it appears at least once in the resume. The technical skills section is the easiest place to hit keywords, but also weave them into bullet points where they truthfully apply.
+- Aim for at least 70% keyword coverage of the JD's technical terms and requirements. Below this threshold, ATS systems are likely to filter the resume out.
+- Pay special attention to: programming languages, frameworks, tools, methodologies (Agile/Scrum), cloud platforms, databases, and domain-specific terms the JD emphasizes.
+
 BULLET SELECTION STRATEGY:
 - The master data contains MANY bullet options per role. Your job is to pick the BEST ones for this specific JD.
 - Prioritize bullets that: (a) directly match a responsibility in the JD, (b) include a concrete metric or outcome, (c) mention a technology or skill the JD asks for.

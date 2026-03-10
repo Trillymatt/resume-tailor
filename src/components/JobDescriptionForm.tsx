@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MasterData, TailoredResume } from "@/lib/types";
+import { MasterData, TailoredResume, KeywordAnalysis } from "@/lib/types";
 import DiffReview from "./DiffReview";
 
 type Status = "idle" | "tailoring" | "reviewing" | "downloading" | "done" | "error";
@@ -16,6 +16,8 @@ export default function JobDescriptionForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [result, setResult] = useState<TailorResult | null>(null);
+  const [keywordAnalysis, setKeywordAnalysis] = useState<KeywordAnalysis | null>(null);
+  const [savedToTracker, setSavedToTracker] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -43,6 +45,24 @@ export default function JobDescriptionForm() {
       const data: TailorResult = await response.json();
       setResult(data);
       setStatus("reviewing");
+
+      // Run keyword analysis
+      try {
+        const analysisRes = await fetch("/api/keyword-analysis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jobDescription,
+            resume: data.tailored,
+          }),
+        });
+        if (analysisRes.ok) {
+          const analysis: KeywordAnalysis = await analysisRes.json();
+          setKeywordAnalysis(analysis);
+        }
+      } catch {
+        // keyword analysis is optional — don't fail the whole flow
+      }
     } catch (err) {
       setStatus("error");
       setErrorMessage(
@@ -51,11 +71,18 @@ export default function JobDescriptionForm() {
     }
   }
 
-  async function handleDownload(finalResume: TailoredResume) {
+  async function handleDownload(finalResume: TailoredResume, format: "docx" | "pdf") {
     setStatus("downloading");
 
+    const endpoint = format === "pdf"
+      ? "/api/tailor/download-pdf"
+      : "/api/tailor/download";
+    const filename = format === "pdf"
+      ? "tailored-resume.pdf"
+      : "tailored-resume.docx";
+
     try {
-      const response = await fetch("/api/tailor/download", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(finalResume),
@@ -67,14 +94,14 @@ export default function JobDescriptionForm() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "tailored-resume.docx";
+      a.download = filename;
       a.click();
       URL.revokeObjectURL(url);
 
       setStatus("done");
     } catch {
       setStatus("error");
-      setErrorMessage("Failed to download resume");
+      setErrorMessage(`Failed to download ${format.toUpperCase()} resume`);
     }
   }
 
@@ -82,6 +109,43 @@ export default function JobDescriptionForm() {
     setStatus("idle");
     setResult(null);
     setErrorMessage("");
+    setKeywordAnalysis(null);
+    setSavedToTracker(false);
+  }
+
+  async function handleSaveApplication(analysis: KeywordAnalysis) {
+    if (savedToTracker) return;
+
+    // Extract a rough job title and company from the JD (first line usually has it)
+    const lines = jobDescription.trim().split("\n").filter(Boolean);
+    const firstLine = lines[0] || "Unknown Position";
+    const secondLine = lines[1] || "Unknown Company";
+
+    const app = {
+      id: `app-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      jobTitle: firstLine.slice(0, 100),
+      company: secondLine.slice(0, 100),
+      dateApplied: new Date().toISOString().split("T")[0],
+      status: "applied" as const,
+      jobDescription: jobDescription.slice(0, 2000),
+      keywordScore: analysis.score,
+      matchedKeywords: analysis.matched,
+      missedKeywords: analysis.missed,
+      notes: "",
+    };
+
+    try {
+      const res = await fetch("/api/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(app),
+      });
+      if (res.ok) {
+        setSavedToTracker(true);
+      }
+    } catch {
+      // silently fail
+    }
   }
 
   // Show diff review when we have results
@@ -106,7 +170,14 @@ export default function JobDescriptionForm() {
           tailored={result.tailored}
           onDownload={handleDownload}
           downloading={status === "downloading"}
+          keywordAnalysis={keywordAnalysis}
+          onSaveApplication={savedToTracker ? undefined : handleSaveApplication}
         />
+        {savedToTracker && (
+          <p className="text-xs text-green-600 font-medium text-center">
+            Saved to Application Tracker
+          </p>
+        )}
       </div>
     );
   }

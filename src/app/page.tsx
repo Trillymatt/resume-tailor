@@ -4,8 +4,9 @@ import { useState } from "react";
 import JobDescriptionForm from "@/components/JobDescriptionForm";
 import CoverLetterForm from "@/components/CoverLetterForm";
 import MasterDataEditor from "@/components/MasterDataEditor";
+import ApplicationTracker from "@/components/ApplicationTracker";
 
-type Tab = "tailor" | "cover-letter" | "master";
+type Tab = "tailor" | "cover-letter" | "tracker" | "master";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>("tailor");
@@ -39,6 +40,16 @@ export default function Home() {
             Cover Letter
           </button>
           <button
+            onClick={() => setActiveTab("tracker")}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === "tracker"
+                ? "border-blue-600 text-blue-600"
+                : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Application Tracker
+          </button>
+          <button
             onClick={() => setActiveTab("master")}
             className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
               activeTab === "master"
@@ -53,6 +64,7 @@ export default function Home() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           {activeTab === "tailor" && <JobDescriptionForm />}
           {activeTab === "cover-letter" && <CoverLetterForm />}
+          {activeTab === "tracker" && <ApplicationTracker />}
           {activeTab === "master" && <MasterDataEditor />}
         </div>
       </div>
