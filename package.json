@@ -12,6 +12,7 @@
     "@anthropic-ai/sdk": "^0.78.0",
     "docxtemplater": "^3.68.3",
     "next": "16.1.6",
+    "pdf-lib": "^1.17.1",
     "pizzip": "^3.2.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"

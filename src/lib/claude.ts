@@ -68,7 +68,8 @@ Rules:
 3. For PROJECTS: Select 1-2 projects from the pool (never 3). For each selected project, pick exactly 2 bullets — the 2 most relevant to the JD. Include the project name from the master data. Return full entry details.
 4. For LEADERSHIP: ALWAYS include both leadership entries. For each, pick 1-2 bullets. Never use 3 bullets for a leadership entry. Include organization, location, role, and dates from the master data. Return full entry details.
 5. For CERTIFICATIONS: Reorder skills by relevance to the job. Return as a comma-separated string.
-6. FILLING EXACTLY ONE PAGE — THIS IS CRITICAL:
+6. For DATES: Use MM/YYYY format (e.g., 03/2020, 01/2024) and "Present" for current roles. Example: "01/2024 – Present" or "06/2019 – 12/2023". This format is easier for ATS parsing and keeps the resume consistent and scannable.
+7. FILLING EXACTLY ONE PAGE — THIS IS CRITICAL:
    The resume MUST fill exactly one page — no half-empty pages, but no overflow either.
    - The page has room for roughly 16-20 total bullet points across all sections (work + projects + leadership). Aim for 17-19.
    - Use a MIX of bullet lengths: ~60% should be detailed 2-line bullets (130-190 characters) that show depth and quantitative impact. ~40% should be punchy 1-line bullets (80-120 characters) that show breadth.
@@ -103,7 +104,7 @@ Return your response as a JSON object matching this exact structure (no markdown
       "organization": "Org Name",
       "location": "City, ST",
       "role": "Role Title",
-      "dates": "Jan 2024 – Present",
+      "dates": "01/2024 – Present",
       "bullets": ["Bullet 1", "Bullet 2"]
     }
   ],
