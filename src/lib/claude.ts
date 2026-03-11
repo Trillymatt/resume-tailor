@@ -36,17 +36,22 @@ STRATEGIC TAILORING — HOW TO MAXIMIZE INTERVIEW CHANCES:
 
 ATS KEYWORD OPTIMIZATION — THIS IS CRITICAL FOR GETTING PAST SCREENING:
 - Most companies use Applicant Tracking Systems (ATS) that scan resumes for keyword matches before a human ever sees them. If key terms from the JD are missing, the resume gets filtered out.
-- Extract EVERY specific technology, tool, methodology, and domain term from the JD. Then ensure as many as possible appear somewhere in the resume — in skills, bullets, or project descriptions.
+- Include EVERY JD keyword the candidate can truthfully claim from their work experience or projects. If the master data supports a JD term (technology, tool, methodology, domain term), that term MUST appear somewhere in the resume — in skills, bullets, or project descriptions. Do not omit claimable keywords for brevity or style.
 - Use the EXACT phrasing from the JD. If the JD says "RESTful APIs," write "RESTful APIs" — not just "APIs." If it says "Agile methodology," use that exact phrase somewhere.
-- For each required skill or technology in the JD, ensure it appears at least once in the resume. The technical skills section is the easiest place to hit keywords, but also weave them into bullet points where they truthfully apply.
-- Aim for at least 70% keyword coverage of the JD's technical terms and requirements. Below this threshold, ATS systems are likely to filter the resume out.
-- Pay special attention to: programming languages, frameworks, tools, methodologies (Agile/Scrum), cloud platforms, databases, and domain-specific terms the JD emphasizes.
+- For each required skill or technology in the JD that the candidate has used (per master data), ensure it appears at least once. The technical skills section is the easiest place, but also weave them into bullet points where they truthfully apply.
+- Pay special attention to: programming languages, frameworks, tools, methodologies (Agile/Scrum), cloud platforms, databases, and domain-specific terms the JD emphasizes. Maximize keyword coverage within the one-page limit while keeping the resume readable.
+
+ATS PARSING & FORMAT — HELP THE PARSER GET IT RIGHT (without breaking layout):
+- Spell out important acronyms at least once so both full form and acronym match—e.g. "CI/CD (Continuous Integration/Continuous Deployment)" in one bullet or the skills section. Do this within the existing length limits: one short parenthetical is enough; do not add extra sentences or lines that would break the one-page layout.
+- Put the most important JD keywords near the START of bullets where it sounds natural. Many ATS weight the beginning of lines. Keep each bullet within the existing length guidance (no new lines or run-on sentences).
+- Use the job title wording from the JD in the leadership "role" field when it fits (e.g. if the JD says "Software Development Engineer," use that phrase only where the candidate's role is equivalent). Do not invent titles or add new fields.
+- Section headers (Technical Skills, Professional Experience, Projects, Leadership, Certifications) are fixed by the resume template. Do not output section names in your content; only fill the JSON fields below.
 
 BULLET SELECTION STRATEGY:
-- The master data contains MANY bullet options per role. Your job is to pick the BEST ones for this specific JD.
-- Prioritize bullets that: (a) directly match a responsibility in the JD, (b) include a concrete metric or outcome, (c) mention a technology or skill the JD asks for.
+- The master data contains MANY bullet options per role. Your job is to pick the BEST ones for this specific JD while ensuring every claimable JD keyword is used somewhere.
+- Prioritize bullets that: (a) directly match a responsibility in the JD, (b) include a concrete metric or outcome, (c) mention a technology or skill the JD asks for. When rewriting, work in additional JD keywords from the master data where they truthfully apply.
 - Avoid picking two bullets that say basically the same thing. Each bullet should cover a different aspect of the role.
-- Between two similar bullets, pick the one that's more specific and has better detail.
+- Between two similar bullets, pick the one that's more specific and includes more relevant JD keywords (or allows you to add a missing keyword elsewhere so the page stays balanced).
 
 ENTRY SELECTION — DYNAMIC SECTIONS:
 - The 2 Apple engineering work experience entries are ALWAYS included. Do not skip them.
@@ -62,10 +67,15 @@ BULLET STRUCTURE — QUANTITATIVE IMPACT FORMAT:
 - Include numbers, percentages, counts, or time savings wherever the master data supports it. Do NOT invent metrics, but DO use the real ones from the master data.
 - A bullet without impact feels empty. "Built internal tooling" is weak. "Built internal tooling that connected version control with bug tracking, improving team response time to reported issues" is strong.
 
+FORMAT & STRUCTURE — DO NOT CHANGE:
+- Return ONLY the exact JSON structure specified below. Same top-level keys, same field names, same array shapes. Do not add sections, remove sections, or add new fields. The DOCX/PDF generators expect this structure; changing it will break the resume layout.
+- workExperience: exactly 2 entries, each with exactly 2 bullets (id + bullets array of length 2). projects: 1–2 entries. leadership: exactly 2 entries. certifications: same count as in master data.
+- All ATS improvements (acronyms, keyword placement, job title wording) must fit inside these existing fields and the one-page bullet length limits. Never add a third bullet per work entry or extra lines in a field to spell out an acronym.
+
 Rules:
 1. For TECHNICAL SKILLS: Reorder to put the most job-relevant skills FIRST. The skills the JD emphasizes most should appear earliest. Only include skills from the master list — do not invent skills. Drop clearly irrelevant ones to keep it focused. Return as a comma-separated string.
-2. For WORK EXPERIENCE bullets: Select exactly 2 bullets per job from the provided pool — pick the 2 that best match the JD. Reword them to naturally incorporate keywords from the JD where they truthfully apply. Do NOT fabricate accomplishments or change metrics/numbers. Each bullet should cover a different aspect of the work — don't double up on the same theme.
-3. For PROJECTS: Select 1-2 projects from the pool (never 3). For each selected project, pick exactly 2 bullets — the 2 most relevant to the JD. Include the project name from the master data. Return full entry details.
+2. For WORK EXPERIENCE bullets: Select exactly 2 bullets per job from the provided pool — pick the 2 that best match the JD and that let you include the most JD keywords the candidate can claim. Reword to incorporate those keywords naturally. Do NOT fabricate accomplishments or change metrics/numbers. Each bullet should cover a different aspect — don't double up on the same theme.
+3. For PROJECTS: Select 1-2 projects from the pool (never 3). For each selected project, pick exactly 2 bullets that best match the JD and include claimable JD keywords. Include the project name from the master data. Return full entry details.
 4. For LEADERSHIP: ALWAYS include both leadership entries. For each, pick 1-2 bullets. Never use 3 bullets for a leadership entry. Include organization, location, role, and dates from the master data. Return full entry details.
 5. For CERTIFICATIONS: Reorder skills by relevance to the job. Return as a comma-separated string.
 6. For DATES: Use MM/YYYY format (e.g., 03/2020, 01/2024) and "Present" for current roles. Example: "01/2024 – Present" or "06/2019 – 12/2023". This format is easier for ATS parsing and keeps the resume consistent and scannable.

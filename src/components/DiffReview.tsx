@@ -659,21 +659,26 @@ export default function DiffReview({
       </section>
 
       {/* Bottom download buttons */}
-      <div className="flex justify-end gap-2">
-        <button
-          onClick={() => onDownload(buildFinalResume(), "docx")}
-          disabled={downloading}
-          className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
-        >
-          {downloading ? "Downloading..." : "Download DOCX"}
-        </button>
-        <button
-          onClick={() => onDownload(buildFinalResume(), "pdf")}
-          disabled={downloading}
-          className="rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 disabled:bg-gray-400 transition-colors"
-        >
-          {downloading ? "Downloading..." : "Download PDF"}
-        </button>
+      <div className="flex flex-col items-end gap-2">
+        <div className="flex gap-2">
+          <button
+            onClick={() => onDownload(buildFinalResume(), "docx")}
+            disabled={downloading}
+            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+          >
+            {downloading ? "Downloading..." : "Download DOCX"}
+          </button>
+          <button
+            onClick={() => onDownload(buildFinalResume(), "pdf")}
+            disabled={downloading}
+            className="rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 disabled:bg-gray-400 transition-colors"
+          >
+            {downloading ? "Downloading..." : "Download PDF"}
+          </button>
+        </div>
+        <p className="text-xs text-gray-500">
+          For job portals: upload DOCX when possible—many ATS parse it more reliably than PDF.
+        </p>
       </div>
     </div>
   );
